@@ -25,13 +25,13 @@ import time
 
 def parse_args():
     parser = argparse.ArgumentParser(description="""argument parser""")
-    parser.add_argument('--cover_image', type=str, default='.\\images\\cover.png')
-    parser.add_argument('--logo_image', type=str, default='.\\images\\logo.png')
-    parser.add_argument('--cover_music', type=str, default='.\\sounds\\main_music.wav')
-    parser.add_argument('--game_music', type=str, default='.\\sounds\\main_music.wav')
-    parser.add_argument('--play_sound', type=str, default='.\\sounds\\play.wav')
-    parser.add_argument('--ilegal_sound', type=str, default='.\\sounds\\error.wav')
-    parser.add_argument('--win_sound', type=str, default='.\\sounds\\win.wav')
+    parser.add_argument('--cover_image', type=str, default='cover.png')
+    parser.add_argument('--logo_image', type=str, default='logo.png')
+    parser.add_argument('--cover_music', type=str, default='main_music.wav')
+    parser.add_argument('--game_music', type=str, default='main_music.wav')
+    parser.add_argument('--play_sound', type=str, default='play.wav')
+    parser.add_argument('--ilegal_sound', type=str, default='error.wav')
+    parser.add_argument('--win_sound', type=str, default='win.wav')
     parser.add_argument('--background_color', type=tuple, default=(255, 255, 255))
     parser.add_argument('--board_colors', type=tuple, default=((20, 20, 20), (200, 200, 200)))
     parser.add_argument('--board_edge_colors', type=tuple, default=((0, 255, 0), (0, 255, 0)))
@@ -99,8 +99,8 @@ def initiallize_game(n_joys):
                               offset=args.offset,
                               screenpos=screenpos)
     drawer = Draw(max_shading=args.max_shading)
-    cover = Cover(cover_image=args.cover_image,
-                  cover_music=args.cover_music,
+    cover = Cover(cover_image=os.path.join('.', 'images', args.cover_image),
+                  cover_music=os.path.join('.', 'sounds', args.cover_music),
                   screen_shape=(args.screen_width, args.screen_height))
     controller = Controller(size=args.game_size,
                             num_joys=n_joys,
@@ -128,16 +128,17 @@ if __name__ == '__main__':
     if args.screen_height is None:
         args.screen_height = y_res
     clock = pygame.time.Clock()
-    logo = pygame.image.load(args.logo_image)
+    logo = pygame.image.load(os.path.join('.', 'images', args.logo_image))
     joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
     for joystick in joysticks:
         joystick.init()
     # music and sounds
-    music = pygame.mixer.Sound(args.game_music)
+    print os.path.abspath(os.path.join('.', 'sounds', args.game_music))
+    music = pygame.mixer.Sound(os.path.join('.', 'sounds', args.game_music))
     music.set_volume(0.3)
-    play_sound = pygame.mixer.Sound(args.play_sound)
+    play_sound = pygame.mixer.Sound(os.path.join('.', 'sounds', args.play_sound))
     play_sound.set_volume(0.1)
-    ilegal_sound = pygame.mixer.Sound(args.ilegal_sound)
+    ilegal_sound = pygame.mixer.Sound(os.path.join('.', 'sounds', args.ilegal_sound))
     ilegal_sound.set_volume(0.1)
     # initiallize game
     screen, state, screenpos, board, cursor, game, get2dcoords, drawer, cover, \
