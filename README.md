@@ -6,4 +6,4 @@ The visualization of the game can be changed by passing specific arguments such 
 You will need at least one game-pad plugged to play (I have not coded keybord control). If no game-pad is plugged you will just watch Cuatro play against itself.
 The project has been coded in python 2.7 but it should work in python 3 as well and both in linux and windows.
 Dependencies are pygame and numpy.
-Watch this video in youtube for a demo: 
+Watch this video in youtube for a demo: https://youtu.be/uukpv5mSabM
