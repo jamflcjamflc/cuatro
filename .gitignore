@@ -125,5 +125,12 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# idea
+.idea/
+
 # Pyre type checker
 .pyre/
+
+# local stuff
+cover.pptx
+
