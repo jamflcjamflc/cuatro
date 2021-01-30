@@ -161,7 +161,7 @@ if __name__ == '__main__':
         clock.tick(20)
         screen.fill(args.background_color)
         screen.blit(logo, logo_pos)
-        if len(joysticks) > 0 and (len(joysticks) == state.next_turn or state.game_over):  # the play is going to be made by a human
+        if len(joysticks) > 0 and (len(joysticks) >= state.next_turn or state.game_over):  # the play is going to be made by a human
             # next we get actions (moving the game or playing) from the joystick
             if state.game_over and len(joysticks) == 1:  # figures out which joy to read based on state status
                 joy_number = 0
