@@ -5,6 +5,7 @@
 
 import time
 import numpy as np
+import os
 
 version = 'controller.v.1.0.0'
 
@@ -50,6 +51,15 @@ class Controller:
         self.action = 'no_action'
         self.reset_time = None
         self.time_limit = time_limit
+        with open(os.path.join('resources', 'os_mask.ini'), 'r') as f:
+            lines = f.readlines()
+            self.invert_axes = lines[0].rstrip('\r\n').upper() == 'TRUE'
+        if self.invert_axes:
+            self.x_axis = 3
+            self.y_axis = 2
+        else:
+            self.x_axis = 2
+            self.y_axis = 3
 
     def get_action(self, joy):
         self.buttons = (joy.get_button(0), joy.get_button(1), joy.get_button(2), joy.get_button(3))
@@ -98,15 +108,19 @@ class Controller:
         self.old_cursor_shift = self.cursor_shift
 
     def get_angles(self, joy):
-        angle_a = joy.get_axis(4)
-        angle_b = joy.get_axis(3)
+        angle_a = joy.get_axis(self.x_axis)
+        angle_b = joy.get_axis(self.y_axis)
         if angle_a > 0.5:
+            print(angle_a)
             self.a = max(-self.max_alpha, self.a - 0.05)
         elif angle_a < -0.5:
+            print(angle_a)
             self.a = min(self.max_alpha, self.a + 0.05)
         if angle_b > 0.5:
+            print(angle_b)
             self.b = max(-self.max_beta / 2, self.b - 0.05)
         elif angle_b < -0.5:
+            print(angle_b)
             self.b = min(0, self.b + 0.05)
 
     def get_status(self, joy):

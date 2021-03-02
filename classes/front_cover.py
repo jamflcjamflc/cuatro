@@ -5,6 +5,7 @@
 
 import pygame
 import time
+import os
 
 version = 'front_cover.v.1.0.0'
 
@@ -43,7 +44,7 @@ class Cover:
         else:
             self.music = None
 
-    def run_cover(self, screen, joystics, clock):
+    def run_cover(self, screen, joysticks, clock):
         if self.music is not None:
             self.music.play(loops=-1)
         keep_menu = True
@@ -54,11 +55,27 @@ class Cover:
                     keep_menu = False
                     pygame.quit()
                     quit()
-            if len(joystics) > 0:
-                keep_menu = not any([item.get_button(1) for item in joystics])
+            if len(joysticks) > 0:
+                keep_menu = not any([item.get_button(1) for item in joysticks])
             else:
                 if time.time() - start_time > 3:
                     keep_menu = False
+            if len(joysticks) > 0:
+                change_config = any([item.get_button(0) for item in joysticks])
+                if change_config:
+                    with open(os.path.join('resources', 'os_mask.ini'), 'r') as f:
+                        lines = f.readlines()
+                        line = lines[0].rstrip('\r\n')
+                        if line.upper() == 'TRUE':
+                            line = 'false\n'
+                        else:
+                            line = 'true\n'
+                    with open(os.path.join('resources', 'os_mask.ini'), 'w') as f:
+                        f.write(line)
+                    print('os_mask.ini changed to ' + line)
+                    keep_menu = False
+                    pygame.quit()
+                    quit()
             screen.fill((255, 255, 255))
             if self.image is not None:
                 rect = screen.get_rect()

@@ -6,7 +6,7 @@
 version = 'cursor.v.1.0.0'
 
 import numpy as np
-from rotate import Rotate
+from classes.rotate import Rotate
 
 
 class Cursor:
