@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument('--logo_image', type=str, default='logo.png')
     parser.add_argument('--cover_music', type=str, default='main_music.wav')
     parser.add_argument('--game_music', type=str, default='main_music.wav')
-    parser.add_argument('--play_sound', type=str, default='play.wav')
+    parser.add_argument('--play_sound', type=str, default='click.wav')
     parser.add_argument('--ilegal_sound', type=str, default='error.wav')
     parser.add_argument('--win_sound', type=str, default='win.wav')
     parser.add_argument('--background_color', type=tuple, default=(255, 255, 255))
@@ -133,10 +133,9 @@ if __name__ == '__main__':
     for joystick in joysticks:
         joystick.init()
     # music and sounds
-    print os.path.abspath(os.path.join('.', 'sounds', args.game_music))
-    music = pygame.mixer.Sound(os.path.join('.', 'sounds', args.game_music))
+    music = pygame.mixer.Sound(os.path.join('sounds', args.game_music))
     music.set_volume(0.3)
-    play_sound = pygame.mixer.Sound(os.path.join('.', 'sounds', args.play_sound))
+    play_sound = pygame.mixer.Sound(os.path.join('sounds', args.play_sound))
     play_sound.set_volume(0.1)
     ilegal_sound = pygame.mixer.Sound(os.path.join('.', 'sounds', args.ilegal_sound))
     ilegal_sound.set_volume(0.1)

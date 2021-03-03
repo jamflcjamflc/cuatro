@@ -4,7 +4,7 @@
 # Alfredo Martin 2021
 
 import numpy as np
-from rotate import Rotate
+from classes.rotate import Rotate
 
 version = 'get2dcoords.v.1.0.0'
 
